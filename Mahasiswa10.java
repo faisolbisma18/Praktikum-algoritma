@@ -15,8 +15,9 @@ public class Mahasiswa10 {
         this.nilai = nilai;
     }
 
+    @Override
     public String toString() {
-        return "NIM: " + nim + ", Nama: " + nama + ", Kelas: " + kelas + 
-               ", Nilai: " + (nilai >= 0 ? nilai : "Belum dinilai");
+        return nim + "\t" + nama + "\t" + kelas + "\t" +
+               (nilai >= 0 ? nilai : "Belum dinilai");
     }
 }

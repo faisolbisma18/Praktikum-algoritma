@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class StackTugasMahasiswa10 {
     Mahasiswa10[] stack;
     int size;
@@ -12,19 +10,11 @@ public class StackTugasMahasiswa10 {
     }
 
     public boolean isFull() {
-        if (top == size - 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return top == size - 1;
     }
 
     public boolean isEmpty() {
-        if (top == -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return top == -1;
     }
 
     public void push(Mahasiswa10 mhs) {
@@ -39,77 +29,39 @@ public class StackTugasMahasiswa10 {
         if (isEmpty()) {
             System.out.println("Stack kosong! Tidak ada tugas untuk dinilai.");
             return null;
-        } else {
-            return stack[top--];
         }
+        return stack[top--];
     }
 
     public Mahasiswa10 peek() {
         if (isEmpty()) {
+            System.out.println("Stack kosong!");
             return null;
         }
         return stack[top];
+    }
+
+    public Mahasiswa10 peekBottom() {
+        if (isEmpty()) {
+            System.out.println("Stack kosong!");
+            return null;
+        }
+        return stack[0]; 
+    }
+
+    public int countTasks() {
+        return top + 1; 
     }
 
     public void print() {
         if (isEmpty()) {
             System.out.println("Stack kosong.");
         } else {
-            System.out.println("Daftar Tugas:");
+            System.out.println("Nama\t\tNIM\t\tKelas\t\tNilai");
             for (int i = 0; i <= top; i++) {
-                System.out.println((i + 1) + ". " + stack[i].toString());
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Masukkan kapasitas stack: ");
-        int kapasitas = sc.nextInt();
-        sc.nextLine();
-        StackTugasMahasiswa10 stack = new StackTugasMahasiswa10(kapasitas);
-
-        while (true) {
-            System.out.println("\nMenu:");
-            System.out.println("1. Tambah Tugas");
-            System.out.println("2. Lihat Tugas");
-            System.out.println("3. Nilai Tugas");
-            System.out.println("4. Keluar");
-            System.out.print("Pilih: ");
-            int pilihan = sc.nextInt();
-            sc.nextLine();
-
-            switch (pilihan) {
-                case 1:
-                    if (stack.isFull()) {
-                        System.out.println("Stack Penuh!");
-                        break;
-                    }
-                    System.out.print("NIM: ");
-                    String nim = sc.nextLine();
-                    System.out.print("Nama: ");
-                    String nama = sc.nextLine();
-                    System.out.print("Kelas: ");
-                    String kelas = sc.nextLine();
-                    Mahasiswa10 mhs = new Mahasiswa10(nim, nama, kelas);
-                    stack.push(mhs);
-                    break;
-                case 2:
-                    stack.print();
-                    break;
-                case 3:
-                    Mahasiswa10 mhsTop = stack.pop();
-                    if (mhsTop != null) {
-                        System.out.print("Masukkan Nilai: ");
-                        int nilai = sc.nextInt();
-                        mhsTop.tugasDinilai(nilai);
-                        System.out.println("Tugas dinilai: " + mhsTop);
-                    }
-                    break;
-                case 4:
-                    System.exit(0);
-                default:
-                    System.out.println("Pilihan tidak valid.");
+                Mahasiswa10 m = stack[i];
+                String nilaiStr = m.nilai >= 0 ? String.valueOf(m.nilai) : "Belum dinilai";
+                System.out.println(m.nama + "\t" + m.nim + "\t" + m.kelas + "\t" + nilaiStr);
             }
         }
     }
